@@ -1,0 +1,89 @@
+spring:
+  application:
+    name: places-service
+
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=placesdb;encrypt=false;trustServerCertificate=true
+    username: sa
+    password: ${MSSQL_PASSWORD}s
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+        format_sql: true
+    show-sql: false
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    schemas: dbo
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 2000ms
+
+  cache:
+    type: redis
+    redis:
+      time-to-live: 86400000
+      cache-null-values: false
+  web:
+    error:
+      include-message: always
+
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  tracing:
+    sampling:
+      probability: 1.0
+    export:
+      zipkin:
+        endpoint: http://localhost:9411/api/v2/spans
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      googlePlaces:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+        permitted-number-of-calls-in-half-open-state: 3
+  retry:
+    instances:
+      googlePlaces:
+        max-attempts: 3
+        wait-duration: 500ms
+
+logging:
+  level:
+    com.company.places: DEBUG
+    org.flywaydb: INFO
+
+app:
+  security:
+    jwt:
+      secret: ${APP_JWT_SECRET}
+      expiration-ms: 3600000
+    default-user:
+      username: ${APP_USER}
+      password: ${APP_PASSWORD}
+  google:
+    api-key: ${GOOGLE_API_KEY:}
+    places-base-url: https://maps.googleapis.com/maps/api/place

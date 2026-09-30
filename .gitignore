@@ -1,0 +1,51 @@
+# ================================================
+# SECRETS / ENVIRONMENT  ← HIGHEST PRIORITY
+# ================================================
+.env
+.env.local
+.env.*.local
+backend/.env
+backend/.env.local
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+*.pem
+*.key
+!*.key.example
+!*.pem.example
+
+# ================================================
+# BACKEND (Maven / Java)
+# ================================================
+backend/target/
+*.class
+*.log
+backend/.mvn/timing.properties
+
+# ================================================
+# FRONTEND (Node / React)
+# ================================================
+frontend/node_modules/
+frontend/build/
+frontend/npm-debug.log*
+frontend/yarn-error.log*
+frontend/.pnp
+frontend/.pnp.js
+
+# ================================================
+# IDE / EDITOR
+# ================================================
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+*.iml
+*.swp
+*~
+
+# ================================================
+# OS
+# ================================================
+.DS_Store
+Thumbs.db

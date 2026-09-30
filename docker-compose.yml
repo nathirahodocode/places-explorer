@@ -1,0 +1,28 @@
+# LOCAL DEVELOPMENT ONLY — replace MSSQL_PASSWORD in production.
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql-places
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${MSSQL_PASSWORD:-Str0ng@Passw0rd}"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis-places
+    ports:
+      - "6379:6379"
+
+  zipkin:
+    image: openzipkin/zipkin:3
+    container_name: zipkin-places
+    ports:
+      - "9411:9411"
+
+volumes:
+  mssql_data:
