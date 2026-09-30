@@ -91,11 +91,7 @@
             <version>${resilience4j.version}</version>
         </dependency>
 
-        <!-- ==== TRACING ==== -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+        <!-- ==== TRACING (Micrometer + Zipkin) ==== -->
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing</artifactId>
@@ -112,10 +108,6 @@
             <groupId>io.zipkin.reporter2</groupId>
             <artifactId>zipkin-sender-urlconnection</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.zipkin.reporter2</groupId>
-            <artifactId>zipkin-sender-urlconnection</artifactId>
-        </dependency>
 
         <!-- ==== DATABASE ==== -->
         <dependency>
@@ -124,7 +116,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- ==== FLYWAY ==== -->
+        <!-- ==== FLYWAY MIGRATIONS ==== -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
@@ -153,7 +145,7 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- ==== TEST ==== -->
+        <!-- ==== TEST (Boot 4 split test starters) ==== -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc-test</artifactId>
