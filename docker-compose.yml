@@ -5,7 +5,7 @@ services:
     container_name: mssql-places
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "${MSSQL_PASSWORD:-Str0ng@Passw0rd}"
+      MSSQL_SA_PASSWORD: "${MSSQL_PASSWORD:?MSSQL_PASSWORD must be set}"
       MSSQL_PID: "Developer"
     ports:
       - "1433:1433"
